@@ -25,10 +25,12 @@ fi
 blank="This page is intentionally left blank"
 
 for f in $1/*.pdf; do
-    text=$(ps2ascii $f | sed 's/[\x0\f]//g' -)
-    text=${text##*Page 1 of 3}
-    text=${text%%Page 2 of 3*}
+    text=$(ps2ascii "${f}" | sed 's/[\x0\f]//g' -)
+    text=${text##*Page 1 of }
+    text=${text%%Page 2 of *}
     text=$(echo $text | tr -d '\n')
+    text=${text:2}
+
     if [ "$text" != "$blank" ]; then
         echo $f
     fi
