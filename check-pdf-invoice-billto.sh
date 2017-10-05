@@ -22,16 +22,11 @@ if [ $# -ne 1 ]; then
     echo "Usage: $0 <dir>"; exit 1;
 fi
 
-blank="This page is intentionally left blank"
+pattern="^\s*This page is intentionally left blank*"
 
 for f in $1/*.pdf; do
-    text=$(ps2ascii "${f}" | sed 's/[\x0\f]//g' -)
-    text=${text##*Page 1 of }
-    text=${text%%Page 2 of *}
-    text=$(echo $text | tr -d '\n')
-    text=${text:2}
-
-    if [ "$text" != "$blank" ]; then
+    pdfseparate -f 2 -l 2 "${f}" /tmp/partial-invoice.pdf
+    if ! [[ $(ps2ascii /tmp/partial-invoice.pdf) =~ ${pattern} ]]; then
         echo $f
     fi
 done
