@@ -8,8 +8,8 @@ Requirements:
 * libxml2-utils
 * curl
 
-## check-pdf-invoice-billto
-Checks that an invoice's billto info hasn't been pushed onto the second page.
+## validate-invoice
+Validates that an invoice's billto info hasn't been pushed onto the second page.
 
 Requirements:
 * poppler-utils
