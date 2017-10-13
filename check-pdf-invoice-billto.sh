@@ -28,8 +28,5 @@ for f in $1/*.pdf; do
     pdfseparate -f 2 -l 2 "${f}" /tmp/partial-invoice.pdf 2>/dev/null || continue
     if ! [[ $(ps2ascii /tmp/partial-invoice.pdf) =~ ${pattern} ]]; then
         echo $f
-    else
-        echo -n .
     fi
-    
 done
